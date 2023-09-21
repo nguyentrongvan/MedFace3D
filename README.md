@@ -1,5 +1,9 @@
 # Dense-face-base-on-3D-landmarks
 #### Using medipipe face mesh (468 facial landmarks) to reconstruct 3D face mesh
+<div style="text-align:center;">
+    <img src="https://mohamedalirashad.github.io/FreeFaceMoCap/assets/img/mediapipe.png" alt="MediaPipe" width="30%">
+</div>
+
 
 ## 1. Usage
 ***1.1. Setup env***  
@@ -7,9 +11,6 @@
 `cd Dense-face-base-on-3D-landmarks`  
 `pip install -r requirement.txt`
 
-<div style="text-align:center;">
-    <img src="https://mohamedalirashad.github.io/FreeFaceMoCap/assets/img/mediapipe.png" alt="MediaPipe" width="30%">
-</div>
 
 ***1.2. Run demo***  
 `python usage.py`
