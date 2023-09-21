@@ -8,6 +8,10 @@ Face depth map estimation:
 ![Image Alt Text](https://github.com/nguyentrongvan/Dense-face-base-on-3D-landmarks/blob/main/data/demo/depth.png)
 
 Video face dense estimation:
-![Image Alt Text](https://github.com/nguyentrongvan/Dense-face-base-on-3D-landmarks/blob/main/data/demo/famed01.gif)
-![Image Alt Text](https://github.com/nguyentrongvan/Dense-face-base-on-3D-landmarks/blob/main/data/demo/famed02.gif)
+
+
+![](https://github.com/nguyentrongvan/Dense-face-base-on-3D-landmarks/blob/main/data/demo/famed01.gif)
+
+
+![](https://github.com/nguyentrongvan/Dense-face-base-on-3D-landmarks/blob/main/data/demo/famed02.gif)
 
