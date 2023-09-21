@@ -11,7 +11,5 @@ Video face dense estimation:
 
 
 ![](https://github.com/nguyentrongvan/Dense-face-base-on-3D-landmarks/blob/main/data/demo/famed01.gif)
-
-
 ![](https://github.com/nguyentrongvan/Dense-face-base-on-3D-landmarks/blob/main/data/demo/famed02.gif)
 
