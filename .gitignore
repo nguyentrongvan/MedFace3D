@@ -1,0 +1,11 @@
+.vscode
+
+env
+.idea
+**/__pycache__
+**/logs
+
+*.log
+*.sqlite
+*.db
+*.csv

@@ -1,0 +1,5 @@
+mediapipe
+numpy
+opencv-python
+scipy
+plyfile

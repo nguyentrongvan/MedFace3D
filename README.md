@@ -7,13 +7,17 @@
 
 ## 1. Usage
 ***1.1. Setup env***  
-`git clone https://github.com/nguyentrongvan/Dense-face-base-on-3D-landmarks.git`  
-`cd Dense-face-base-on-3D-landmarks`  
-`pip install -r requirement.txt`
+```
+git clone https://github.com/nguyentrongvan/Dense-face-base-on-3D-landmarks.git
+cd Dense-face-base-on-3D-landmarks 
+pip install -r requirements.txt
+```
 
 
 ***1.2. Run demo***  
-`python usage.py`
+```
+python usage.py
+```
 
 ## 2. Demo result
 ### Face mesh generation:

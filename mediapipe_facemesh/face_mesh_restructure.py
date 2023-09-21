@@ -1,10 +1,8 @@
 import cv2
 import mediapipe as mp
 import numpy as np
-import os
 
 from scipy.spatial import Delaunay
-from utils.save_mesh import save_ply_mesh
 from utils.interpolation import bilinear_interpolation, bilinear_interpolation_triangle
 from utils.visualize import plot_mesh, plot_point_cloud
 from utils.transform import min_max_scale
