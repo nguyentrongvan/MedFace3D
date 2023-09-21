@@ -16,7 +16,7 @@ pip install -r requirements.txt
 
 ***1.2. Run demo***  
 ```
-python usage.py
+python reconstruct.py
 ```
 
 ## 2. Demo result
