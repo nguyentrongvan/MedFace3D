@@ -20,16 +20,17 @@ python reconstruct.py
 ```
 
 ## 2. Demo result
-### Face mesh generation:
+### Face dense generation:
 ![Demo face mesh](data/demo/dense.png)
+<div style="text-align:center;">
+    <img src="data/demo/famed01.gif" alt="MediaPipe" width="49%">
+    <img src="data/demo/famed02.gif" alt="MediaPipe" width="49%">
+</div>
 
-### Face depth map estimation:
+
+### Face depth estimation:
 ![Demo face depth](data/demo/depth.png)
 
-### Video face dense estimation:
-
-![](data/demo/famed01.gif)
-![](data/demo/famed02.gif)
 
 ### 3D face mesh reconstruction:
 <video controls>
