@@ -1,11 +1,12 @@
 import os
 import cv2
 import argparse
-
+import numpy as np
 
 from mediapipe_facemesh.face_mesh_restructure import FaceMeshRestructure
 from utils.save_mesh import save_ply_mesh
 from utils.visualize import get_depth_map
+from utils.render_mesh import render_mesh
 
 
 def main():
@@ -18,6 +19,8 @@ def main():
     parser.add_argument('-sv', '--save_mesh',   action="store_true",    help='save result as .ply file')
     parser.add_argument('-dm', '--depth_map',   action="store_true",    help='save result as depth map')
     parser.add_argument('-sf', '--face_dense',  action="store_true",    help='save result as dense map')
+    parser.add_argument('-rm', '--render_mesh',  action="store_true",    help='render 3D mesh map', default=True)
+
     args = parser.parse_args()
 
     files = os.listdir(args.folder) 
@@ -46,7 +49,19 @@ def main():
                 z = 450 / 2 - depth_list[i] * 450
                 points_3d.append([x, y, z])
             save_ply_mesh(points_3d,  triangles.simplices, f'{args.folder}/{file}_face_dense.ply')
-
+        
+        if args.render_mesh:
+            points_3d = []
+            for i, (x,y) in enumerate(points):
+                z = 450 / 2 - depth_list[i] * 450
+                points_3d.append([x, y, z])
+            
+            # points_3d = np.asarray(points_3d).reshape(3, len(points_3d))
+            point_cloud_data = np.asarray(points_3d)
+            mesh_image = render_mesh(image, point_cloud_data)
+            cv2.imshow('mesh', mesh_image)
+            cv2.waitKey()
+            cv2.destroyAllWindows()
 
 if __name__ == '__main__':
     # Example usage:

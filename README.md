@@ -31,3 +31,12 @@ python reconstruct.py
 ![](data/demo/famed01.gif)
 ![](data/demo/famed02.gif)
 
+### 3D face mesh reconstruction:
+<video controls>
+  <source src="data/demo/mesh_famed01.mp4" type="video/mp4">
+</video>
+
+<video controls>
+  <source src="data/demo/mesh_local.mp4" type="video/mp4">
+</video>
+
