@@ -33,11 +33,8 @@ python reconstruct.py
 
 
 ### 3D face mesh reconstruction:
-<video controls>
-  <source src="data/demo/mesh_famed01.mp4" type="video/mp4">
-</video>
-
-<video controls>
-  <source src="data/demo/mesh_local.mp4" type="video/mp4">
-</video>
+<div style="text-align:center;">
+    <img src="data/demo/mesh_famed.gif" alt="MediaPipe" width="100%">
+    <img src="data/demo/mesh_local.gif" alt="MediaPipe" width="100%">
+</div>
 
