@@ -1,5 +1,5 @@
 # Dense-face-base-on-3D-landmarks
-#### Using medipipe face mesh (468 facial landmarks) to reconstruct 3D face mesh
+#### Using medipipe face mesh to detect 468 3D facial landmarks and use it to reconstruct 3D face mesh
 <div style="text-align:center;">
     <img src="https://mohamedalirashad.github.io/FreeFaceMoCap/assets/img/mediapipe.png" alt="MediaPipe" width="30%">
 </div>
