@@ -4,8 +4,6 @@ import argparse
 import numpy as np
 
 from mediapipe_facemesh.face_mesh_restructure import FaceMeshRestructure
-from utils.save_mesh import save_ply_mesh
-from utils.visualize import get_depth_map
 from utils.render_mesh import render_mesh
 
 

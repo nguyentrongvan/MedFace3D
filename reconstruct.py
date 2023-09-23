@@ -5,21 +5,24 @@ import numpy as np
 
 from mediapipe_facemesh.face_mesh_restructure import FaceMeshRestructure
 from utils.save_mesh import save_ply_mesh
-from utils.visualize import get_depth_map
-from utils.render_mesh import render_mesh
+from utils.visualize import get_depth_map, save_images_as_gif
+from utils.render_mesh import render_mesh, render_rotate_mesh
 
 
 def main():
     # Parse command-line arguments
     parser = argparse.ArgumentParser()
     parser.add_argument('-f',  '--folder',      default='data/sample' , help='path to sample folder image')
-    parser.add_argument('-l',  '--max_loop',    type=int, default=2 ,   help='max loop to reconstruct 3D face mesh')
+    parser.add_argument('-l',  '--max_loop',    type=int, default= 2,   help='max loop to reconstruct 3D face mesh')
     parser.add_argument('-p',  '--point_cloud', action="store_true",    help='get image result as point cloud')
     parser.add_argument('-d',  '--depth_scale', action="store_true",    help='depth scale for depth value')
     parser.add_argument('-sv', '--save_mesh',   action="store_true",    help='save result as .ply file')
     parser.add_argument('-dm', '--depth_map',   action="store_true",    help='save result as depth map')
     parser.add_argument('-sf', '--face_dense',  action="store_true",    help='save result as dense map')
     parser.add_argument('-rm', '--render_mesh',  action="store_true",    help='render 3D mesh map', default=True)
+    parser.add_argument('-mv', '--mesh_view',  action="store_true",    help='render 3D mesh map', default=True)
+    parser.add_argument('-ar', '--axis_rotate',  default='y',    help='render 3D mesh map')
+
 
     args = parser.parse_args()
 
@@ -59,9 +62,14 @@ def main():
             # points_3d = np.asarray(points_3d).reshape(3, len(points_3d))
             point_cloud_data = np.asarray(points_3d)
             mesh_image = render_mesh(image, point_cloud_data)
-            cv2.imshow('mesh', mesh_image)
-            cv2.waitKey()
-            cv2.destroyAllWindows()
+            cv2.imwrite(f'{args.folder}/{file}_face_mesh.jpg', mesh_image)
+        
+
+        if args.mesh_view:
+            list_view = render_rotate_mesh(image, point_cloud_data)
+            save_images_as_gif(list_view, f'{args.folder}/{file}_face_mesh_view.gif')
+ 
+
 
 if __name__ == '__main__':
     # Example usage:

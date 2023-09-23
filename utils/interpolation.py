@@ -1,4 +1,6 @@
-def bilinear_interpolation_triangle(A, B, C, u=0.3, v=0.4):
+import numpy as np
+
+def bilinear_interpolation_triangle(A, B, C, u = 1/3, v = 1/3):
     # Calculate the weights for each vertex of the triangle
     w_A = u
     w_B = v
@@ -11,12 +13,15 @@ def bilinear_interpolation_triangle(A, B, C, u=0.3, v=0.4):
     return (int(x_interpolated), int(y_interpolated))
 
 
-def bilinear_interpolation(list_value, w = 0.4, h = 0.6):
-    x1, x2, x3 = list_value
-    # Calculate the top interpolation (linear interpolation along the width)
-    top_interp = (1 - w) * x1 + w * x2
-    # Calculate the bottom interpolation (linear interpolation along the width)
-    bottom_interp = (1 - w) * x3 + w * x1
-    # Calculate the final result (linear interpolation along the height)
-    result = (1 - h) * top_interp + h * bottom_interp
-    return result
+def bilinear_interpolation(list_values, u = 1/3, v = 1/3):
+    if len(list_values) != 3:
+        raise ValueError("Input list_values must contain exactly 3 values.")
+
+    w_A = u
+    w_B = v
+    w_C = 1 - u - v
+
+    x1, x2, x3 = list_values
+
+    pt_interpolated = w_A * x1 + w_B * x2 + w_C * x3
+    return pt_interpolated

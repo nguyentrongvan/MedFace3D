@@ -1,5 +1,7 @@
 import cv2
 import numpy as np
+from PIL import Image
+
 from utils.transform import min_max_scale
 
 def plot_mesh(image, points, triangle, depth_list):
@@ -54,3 +56,16 @@ def get_depth_map(image, points, triangle, depth_list):
         cv2.line(background, tuple(pt2), tuple(pt3), depth_color_2, 3)
         cv2.line(background, tuple(pt3), tuple(pt1), depth_color_3, 3)
     return background
+
+
+def save_images_as_gif(image_list, output_filename, duration=200):
+    # Convert NumPy arrays to PIL Images
+    pil_images = [Image.fromarray(np.uint8(image)) for image in image_list]
+
+    pil_images[0].save(
+        output_filename,
+        save_all=True,
+        append_images=pil_images[1:],
+        duration=duration,
+        loop=0
+    )
