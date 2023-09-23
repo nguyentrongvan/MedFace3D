@@ -62,7 +62,7 @@ def rotate_point_cloud(point_cloud, rotation_matrix):
 
 def render_rotate_mesh(image_ori, point_cloud_data, delta_angle = 10, axis = 'y'):
     list_view = []
-    for angle_degrees in range(-90, 90, delta_angle):
+    for angle_degrees in range(-180, 180, delta_angle):
         angle_radians = np.radians(angle_degrees)
         
         if  axis == 'x':

@@ -3,6 +3,9 @@
 <div style="text-align:center;">
     <img src="https://mohamedalirashad.github.io/FreeFaceMoCap/assets/img/mediapipe.png" alt="MediaPipe" width="30%">
 </div>
+<div style="text-align:center;">
+    <img src="data/sample/face_001.jpg_face_reconstruction.gif" alt="demo" width="30%">
+</div>
 
 
 ## 1. Usage
@@ -16,7 +19,7 @@ pip install -r requirements.txt
 
 ***1.2. Run demo***  
 ```
-python reconstruct.py
+python demo.py
 ```
 
 ## 2. Demo result

@@ -55,12 +55,12 @@ def get_depth_map(image, points, triangle, depth_list):
         cv2.line(background, tuple(pt1), tuple(pt2), depth_color_1, 3)
         cv2.line(background, tuple(pt2), tuple(pt3), depth_color_2, 3)
         cv2.line(background, tuple(pt3), tuple(pt1), depth_color_3, 3)
-    return background
+    return np.concatenate([background] * 3, axis=-1)
 
 
-def save_images_as_gif(image_list, output_filename, duration=200):
+def save_images_as_gif(image_list, output_filename, duration=400):
     # Convert NumPy arrays to PIL Images
-    pil_images = [Image.fromarray(np.uint8(image)) for image in image_list]
+    pil_images = [Image.fromarray(np.uint8(image[:, :, ::-1])) for image in image_list]
 
     pil_images[0].save(
         output_filename,

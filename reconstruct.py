@@ -34,6 +34,7 @@ def main():
 
         path_read = f'{args.folder}/{file}'
         image = cv2.imread(path_read)
+        h, w, c = image.shape
 
         detector = FaceMeshRestructure(max_loop = args.max_loop)
         input_image = image.copy()
@@ -54,13 +55,13 @@ def main():
             save_ply_mesh(points_3d,  triangles.simplices, f'{args.folder}/{file}_face_dense.ply')
         
         if args.render_mesh:
-            point_cloud_data = get_3D_point_cloud(points, depth_list)
+            point_cloud_data = get_3D_point_cloud(points, depth_list, w)
             mesh_image = render_mesh(image, point_cloud_data)
             cv2.imwrite(f'{args.folder}/{file}_face_mesh.jpg', mesh_image)
         
 
         if args.mesh_view:
-            point_cloud_data = get_3D_point_cloud(points, depth_list)
+            point_cloud_data = get_3D_point_cloud(points, depth_list, w)
             list_view = render_rotate_mesh(image, point_cloud_data)
             save_images_as_gif(list_view, f'{args.folder}/{file}_face_mesh_view.gif')
  
