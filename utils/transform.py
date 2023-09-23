@@ -30,3 +30,12 @@ def get_matrix_rotate_point_around_z(angle_radians):
         [0, 0, 1]
     ])
     return rotation_matrix
+
+
+def get_3D_point_cloud(points, depth_list, const = 450):
+    points_3d = []
+    for i, (x,y) in enumerate(points):
+        z = const / 2 - depth_list[i] * const
+        points_3d.append([x, y, z])
+    
+    return np.asarray(points_3d)

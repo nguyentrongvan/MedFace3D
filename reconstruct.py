@@ -7,7 +7,7 @@ from mediapipe_facemesh.face_mesh_restructure import FaceMeshRestructure
 from utils.save_mesh import save_ply_mesh
 from utils.visualize import get_depth_map, save_images_as_gif
 from utils.render_mesh import render_mesh, render_rotate_mesh
-
+from utils.transform import get_3D_point_cloud
 
 def main():
     # Parse command-line arguments
@@ -39,6 +39,9 @@ def main():
         input_image = image.copy()
         output_image, face_detected, points, depth_list, triangles = detector.generate_face_mesh(input_image, args.point_cloud, args.depth_scale)
         
+        if not face_detected:
+            print(f'No face detected in is image')
+
         if args.face_dense:
             cv2.imwrite(f'{args.folder}/{file}_face_dense.jpg', output_image)
 
@@ -47,25 +50,17 @@ def main():
             cv2.imwrite(f'{args.folder}/{file}_face_depth.jpg', depth_map)
 
         if args.save_mesh:
-            points_3d = []
-            for i, (x,y) in enumerate(points):
-                z = 450 / 2 - depth_list[i] * 450
-                points_3d.append([x, y, z])
+            points_3d = get_3D_point_cloud(points, depth_list)
             save_ply_mesh(points_3d,  triangles.simplices, f'{args.folder}/{file}_face_dense.ply')
         
         if args.render_mesh:
-            points_3d = []
-            for i, (x,y) in enumerate(points):
-                z = 450 / 2 - depth_list[i] * 450
-                points_3d.append([x, y, z])
-            
-            # points_3d = np.asarray(points_3d).reshape(3, len(points_3d))
-            point_cloud_data = np.asarray(points_3d)
+            point_cloud_data = get_3D_point_cloud(points, depth_list)
             mesh_image = render_mesh(image, point_cloud_data)
             cv2.imwrite(f'{args.folder}/{file}_face_mesh.jpg', mesh_image)
         
 
         if args.mesh_view:
+            point_cloud_data = get_3D_point_cloud(points, depth_list)
             list_view = render_rotate_mesh(image, point_cloud_data)
             save_images_as_gif(list_view, f'{args.folder}/{file}_face_mesh_view.gif')
  

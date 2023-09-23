@@ -6,6 +6,7 @@ import numpy as np
 from mediapipe_facemesh.face_mesh_restructure import FaceMeshRestructure
 from utils.render_mesh import render_mesh
 from utils.transform import get_3D_point_cloud
+from simualte.simuator import merge_action
 
 
 def main():
@@ -27,7 +28,10 @@ def main():
     else: name_save = os.path.basename(args.video_path)
 
     out = cv2.VideoWriter(f'data/demo/mesh_{name_save}', fourcc, 10, size)
+    simulator_des = cv2.imread(f'data/sample/merge_action.jpg')
+    output_image, _, points, depth_list, _ = detector.generate_face_mesh(simulator_des, True, False)
 
+    des_object_pcd = get_3D_point_cloud(points, depth_list)
 
     if not cap.isOpened():
         print("Error: Could not open camera.")
@@ -46,10 +50,10 @@ def main():
         
         if face_detected:
             point_cloud_data = get_3D_point_cloud(points, depth_list)
-            mesh_blank = render_mesh(input_image, point_cloud_data)
-            mesh_map = render_mesh(input_image, point_cloud_data, False)
+
+            transformed_obj = merge_action(point_cloud_data, des_object_pcd)
+            mesh_blank = render_mesh(input_image, transformed_obj)
             output_image = cv2.hconcat([frame, mesh_blank])
-            output_image = cv2.hconcat([output_image, mesh_map])
 
         out.write(output_image)
         # Display the frame in a window
@@ -63,11 +67,6 @@ def main():
     cap.release()
     out.release()
     cv2.destroyAllWindows()
-
-
-
-    
-
 
 if __name__ == '__main__':
     # Example usage:
