@@ -3,7 +3,7 @@ import cv2
 import argparse
 import numpy as np
 
-from mediapipe_facemesh.face_mesh_restructure import FaceMeshRestructure
+from medface3D.face_mesh_reconstruction import FaceMeshGenerator
 from utils.save_mesh import save_ply_mesh
 from utils.visualize import get_depth_map, save_images_as_gif
 from utils.render_mesh import render_mesh, render_rotate_mesh
@@ -36,7 +36,7 @@ def main():
         image = cv2.imread(path_read)
         h, w, c = image.shape
 
-        detector = FaceMeshRestructure(max_loop = args.max_loop)
+        detector = FaceMeshGenerator(max_loop = args.max_loop)
         input_image = image.copy()
         output_image, face_detected, points, depth_list, triangles = detector.generate_face_mesh(input_image, args.point_cloud, args.depth_scale)
         

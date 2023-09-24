@@ -8,7 +8,7 @@ from utils.visualize import plot_mesh, plot_point_cloud
 from utils.transform import min_max_scale
 
 
-class FaceMeshRestructure:
+class FaceMeshGenerator:
     def __init__(self, max_loop = 2, 
                 detection_conf = 0.2, 
                 face_mesh_dect_conf = 0.2,

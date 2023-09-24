@@ -3,7 +3,7 @@ import cv2
 import argparse
 import numpy as np
 
-from mediapipe_facemesh.face_mesh_restructure import FaceMeshRestructure
+from medface3D.face_mesh_reconstruction import FaceMeshGenerator
 from utils.render_mesh import render_mesh
 from utils.transform import get_3D_point_cloud
 from simualte.simuator import merge_action
@@ -17,7 +17,7 @@ def main():
 
     args = parser.parse_args()
 
-    detector = FaceMeshRestructure(max_loop = args.max_loop)
+    detector = FaceMeshGenerator(max_loop = args.max_loop)
     cap = cv2.VideoCapture(args.video_path)
 
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
