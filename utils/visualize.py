@@ -41,6 +41,7 @@ def get_depth_color(depth_value):
 
 
 def get_depth_map(image, points, triangle, depth_list):
+    points = np.array(points, dtype=int)
     background = np.zeros((image.shape[0], image.shape[1], 1))
     depth_list = min_max_scale(depth_list)
 

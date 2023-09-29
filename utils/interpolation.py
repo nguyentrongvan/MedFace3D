@@ -13,6 +13,16 @@ def bilinear_interpolation_triangle(A, B, C, u = 1/3, v = 1/3):
     return (int(x_interpolated), int(y_interpolated))
 
 
+def bilinear_interpolation_depth(triangle_depths, barycentric_coords = [1/3, 1/3, 1/3]):
+    depth1, depth2, depth3 = triangle_depths
+    alpha, beta, gamma = barycentric_coords
+
+    # Interpolate depth
+    interpolated_depth = alpha * depth1 + beta * depth2 + gamma * depth3
+
+    return interpolated_depth
+
+
 def bilinear_interpolation(list_values, u = 1/3, v = 1/3):
     if len(list_values) != 3:
         raise ValueError("Input list_values must contain exactly 3 values.")

@@ -3,9 +3,11 @@ import mediapipe as mp
 import numpy as np
 
 from scipy.spatial import Delaunay
-from utils.interpolation import bilinear_interpolation, bilinear_interpolation_triangle
+from utils.interpolation import bilinear_interpolation_depth, bilinear_interpolation_triangle
 from utils.visualize import plot_mesh, plot_point_cloud
-from utils.transform import min_max_scale
+from utils.transform import min_max_scale, get_3D_point_cloud
+from medface3D.face_pose_estimation import get_face_pose
+from utils.alignment import get_fontal_landmarks
 
 
 class FaceMeshGenerator:
@@ -24,7 +26,7 @@ class FaceMeshGenerator:
         self.max_loop = max_loop
     
 
-    def generate_face_mesh(self, image, point_cloud = False, depth_scale = False):
+    def generate_face_mesh(self, image, point_cloud = False, depth_scale = False, aligment = False):
         try:
             points = []
             triangles = []
@@ -48,8 +50,15 @@ class FaceMeshGenerator:
                     continue
                 
                 for landmarks in results_landmarks.multi_face_landmarks:
+
                     landmarks_list = [(int(landmark.x * iw), int(landmark.y * ih)) for landmark in landmarks.landmark]
                     depth_list = [landmark.z  for landmark in landmarks.landmark]
+
+                    if aligment:
+                        face_pose = get_face_pose(landmarks)
+                        point_cloud_data = get_3D_point_cloud(landmarks_list, depth_list)
+                        landmarks_list = get_fontal_landmarks(point_cloud_data, face_pose)[:,:2]
+                        landmarks_list = list(landmarks_list)
 
                     # Perform Delaunay triangulation
                     points = np.array(landmarks_list)
@@ -62,7 +71,7 @@ class FaceMeshGenerator:
                             tri_center = bilinear_interpolation_triangle(A=pt1, B=pt2, C=pt3)
                             landmarks_list.append(tri_center)
                             triangle_depths = [depth_list[i] for i in simplex]
-                            depth_list.append(bilinear_interpolation(triangle_depths))
+                            depth_list.append(bilinear_interpolation_depth(triangle_depths))
 
                         # Perform Delaunay triangulation
                         points = np.array(landmarks_list)
@@ -78,9 +87,9 @@ class FaceMeshGenerator:
                     else: depth_list = np.asarray(depth_list)
 
                     if point_cloud: 
-                        image = plot_point_cloud(image, points, depth_list)
+                        image = plot_point_cloud(image, points.astype(int), depth_list)
                     else: 
-                        image = plot_mesh(image, points, triangles.simplices, depth_list)        
+                        image = plot_mesh(image, points.astype(int), triangles.simplices, depth_list)        
                 return image, face_detected, points, depth_list, triangles         
         except Exception as e:
             raise e
