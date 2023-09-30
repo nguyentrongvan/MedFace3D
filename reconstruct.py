@@ -20,7 +20,7 @@ def main():
     parser.add_argument('-dm', '--depth_map',   action="store_true",    help='save result as depth map')
     parser.add_argument('-sf', '--face_dense',  action="store_true",    help='save result as dense map')
     parser.add_argument('-rm', '--render_mesh',  action="store_true",    help='render 3D mesh map', default=True)
-    parser.add_argument('-mv', '--mesh_view',  action="store_true",    help='render 3D mesh map', default=True)
+    parser.add_argument('-mv', '--mesh_view',  action="store_true",    help='render 3D mesh map', default=False)
     parser.add_argument('-ar', '--axis_rotate',  default='y',    help='render 3D mesh map')
 
 
@@ -38,32 +38,42 @@ def main():
 
         detector = FaceMeshGenerator(max_loop = args.max_loop)
         input_image = image.copy()
-        output_image, face_detected, points, depth_list, triangles = detector.generate_face_mesh(input_image, args.point_cloud, args.depth_scale)
+        result = detector.generate_face_mesh(input_image, args.point_cloud, args.depth_scale)
+
+        if type(result) == type(None):
+            print(f'result is None - {path_read}')
+            continue
         
+        output_image, face_detected, points, depth_list, triangles = result
+
         if not face_detected:
             print(f'No face detected in is image')
-
-        if args.face_dense:
-            cv2.imwrite(f'{args.folder}/{file}_face_dense.jpg', output_image)
-
-        if args.depth_map:
-            depth_map = get_depth_map(input_image, points, triangles.simplices, depth_list)
-            cv2.imwrite(f'{args.folder}/{file}_face_depth.jpg', depth_map)
-
-        if args.save_mesh:
-            points_3d = get_3D_point_cloud(points, depth_list)
-            save_ply_mesh(points_3d,  triangles.simplices, f'{args.folder}/{file}_face_dense.ply')
+            continue
         
-        if args.render_mesh:
-            point_cloud_data = get_3D_point_cloud(points, depth_list, w)
-            mesh_image = render_mesh(image, point_cloud_data)
-            cv2.imwrite(f'{args.folder}/{file}_face_mesh.jpg', mesh_image)
-        
+        try:
+            if args.face_dense:
+                cv2.imwrite(f'{args.folder}/{file}_face_dense.jpg', output_image)
 
-        if args.mesh_view:
-            point_cloud_data = get_3D_point_cloud(points, depth_list, w)
-            list_view = render_rotate_mesh(image, point_cloud_data)
-            save_images_as_gif(list_view, f'{args.folder}/{file}_face_mesh_view.gif')
+            if args.depth_map:
+                depth_map = get_depth_map(input_image, points, triangles.simplices, depth_list)
+                cv2.imwrite(f'{args.folder}/{file}_face_depth.jpg', depth_map)
+
+            if args.save_mesh:
+                points_3d = get_3D_point_cloud(points, depth_list)
+                save_ply_mesh(points_3d,  triangles.simplices, f'{args.folder}/{file}_face_dense.ply')
+            
+            if args.render_mesh:
+                point_cloud_data = get_3D_point_cloud(points, depth_list, w)
+                mesh_image = render_mesh(image, point_cloud_data)
+                cv2.imwrite(f'{args.folder}/{file}_face_mesh.jpg', mesh_image)
+            
+
+            if args.mesh_view:
+                point_cloud_data = get_3D_point_cloud(points, depth_list, w)
+                list_view = render_rotate_mesh(image, point_cloud_data)
+                save_images_as_gif(list_view, f'{args.folder}/{file}_face_mesh_view.gif')
+        except Exception as e:
+            print(f'Error whne process image {path_read}: {e}')
  
 
 
