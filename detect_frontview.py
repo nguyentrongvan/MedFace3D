@@ -6,10 +6,10 @@ import numpy as np
 from medface3D.face_mesh_reconstruction import FaceMeshGenerator
 from medface3D.face_pose_estimation import FacePoseEstimator
 
-from utils.visualize import save_images_as_gif, get_depth_map
-from utils.render_mesh import render_mesh, render_rotate_mesh
+from utils.visualize import get_depth_map
+from utils.render_mesh import render_mesh
 from utils.transform import get_3D_point_cloud
-from utils.alignment import get_fontal_landmarks
+from utils.alignment import frontalize
 
 def main():
     # Parse command-line arguments
@@ -18,6 +18,7 @@ def main():
     parser.add_argument('-l',  '--max_loop',    type=int, default=0,   help='max loop to reconstruct 3D face mesh')
     parser.add_argument('-p',  '--point_cloud', action="store_true",  default=True,  help='get image result as point cloud')
     parser.add_argument('-d',  '--depth_scale', action="store_true",  default=False,  help='depth scale for depth value')
+    parser.add_argument('-r',  '--render_mesh', action="store_true",  default=True,  help='render mesh from frontview')
 
 
     args = parser.parse_args()
@@ -25,7 +26,7 @@ def main():
     files = os.listdir(args.folder) 
 
     for _, file in enumerate(files):
-        if (file.split('.')[-1] not in ['jpg', 'png']) or (file != 'image00004.jpg'):
+        if (file.split('.')[-1] not in ['jpg', 'png']) or (file != 'merge_action.jpg'):
             continue
         
         try:
@@ -37,7 +38,7 @@ def main():
             estimator = FacePoseEstimator()
 
             input_image = image.copy()
-            output_image, face_detected, points, depth_list, triangles = detector.generate_face_mesh(input_image, args.point_cloud, args.depth_scale, True)
+            output_image, face_detected, points, depth_list, triangles = detector.generate_face_mesh(input_image, args.point_cloud, args.depth_scale, False, False)
             
             if face_detected:
                 list_view = []
@@ -48,12 +49,18 @@ def main():
                 list_view.append(depth_map)
 
                 point_cloud_data = get_3D_point_cloud(points, depth_list, w)
-                frontal_landmark = point_cloud_data
+
+                frontal_vertices = np.load('data/view/front-view-lmks.npy')
+                frontal_landmark = frontalize(point_cloud_data, frontal_vertices)
+
                 mask_img = np.zeros(image.shape)
 
                 for point in frontal_landmark:
                     x, y, _ = np.array(point, dtype=int)
                     cv2.circle(mask_img, (x,y), 2, (255,0,0), -1)
+
+                if args.render_mesh:
+                    mask_img = render_mesh(image, frontal_landmark)
                 
                 cv2.imshow('mask', mask_img)
                 cv2.waitKey()

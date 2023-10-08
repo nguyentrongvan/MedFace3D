@@ -13,14 +13,14 @@ def main():
     # Parse command-line arguments
     parser = argparse.ArgumentParser()
     parser.add_argument('-f',  '--folder',      default='data/sample' , help='path to sample folder image')
-    parser.add_argument('-l',  '--max_loop',    type=int, default= 2,   help='max loop to reconstruct 3D face mesh')
+    parser.add_argument('-l',  '--max_loop',    type=int, default=2,   help='max loop to reconstruct 3D face mesh')
     parser.add_argument('-p',  '--point_cloud', action="store_true",    help='get image result as point cloud')
     parser.add_argument('-d',  '--depth_scale', action="store_true",    help='depth scale for depth value')
     parser.add_argument('-sv', '--save_mesh',   action="store_true",    help='save result as .ply file')
     parser.add_argument('-dm', '--depth_map',   action="store_true",    help='save result as depth map')
     parser.add_argument('-sf', '--face_dense',  action="store_true",    help='save result as dense map')
     parser.add_argument('-rm', '--render_mesh',  action="store_true",    help='render 3D mesh map', default=True)
-    parser.add_argument('-mv', '--mesh_view',  action="store_true",    help='render 3D mesh map', default=False)
+    parser.add_argument('-mv', '--mesh_view',  action="store_true",    help='render 3D mesh map', default=True)
     parser.add_argument('-ar', '--axis_rotate',  default='y',    help='render 3D mesh map')
 
 
@@ -38,7 +38,7 @@ def main():
 
         detector = FaceMeshGenerator(max_loop = args.max_loop)
         input_image = image.copy()
-        result = detector.generate_face_mesh(input_image, args.point_cloud, args.depth_scale)
+        result = detector.generate_face_mesh(input_image, args.point_cloud, args.depth_scale, False, args.front_view)
 
         if type(result) == type(None):
             print(f'result is None - {path_read}')
@@ -73,7 +73,7 @@ def main():
                 list_view = render_rotate_mesh(image, point_cloud_data)
                 save_images_as_gif(list_view, f'{args.folder}/{file}_face_mesh_view.gif')
         except Exception as e:
-            print(f'Error whne process image {path_read}: {e}')
+            print(f'Error when process image {path_read}: {e}')
  
 
 

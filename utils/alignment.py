@@ -58,3 +58,12 @@ def get_frontal_landmarks_v2(landmarks_initial_pose, face_pose):
 
     return  landmarks_final_pose
 
+
+# refer: https://github.com/yfeng95/PRNet.git
+def frontalize(vertices, frontal_vertices):
+    vertices_homo = np.hstack((vertices, np.ones([vertices.shape[0],1]))) #n x 4
+    P = np.linalg.lstsq(vertices_homo, frontal_vertices)[0].T # Affine matrix. 3 x 4
+    front_vertices = vertices_homo.dot(P.T)
+
+    return front_vertices
+

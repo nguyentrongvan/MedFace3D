@@ -6,8 +6,8 @@ from scipy.spatial import Delaunay
 from utils.interpolation import bilinear_interpolation_depth, bilinear_interpolation_triangle
 from utils.visualize import plot_mesh, plot_point_cloud
 from utils.transform import min_max_scale, get_3D_point_cloud
-from medface3D.face_pose_estimation import get_face_pose
-from utils.alignment import get_fontal_landmarks
+from utils.post_processing import smoothing_point_cloud
+from utils.alignment import frontalize
 
 
 class FaceMeshGenerator:
@@ -24,9 +24,10 @@ class FaceMeshGenerator:
                                                     min_tracking_confidence = min_tracking_conf)
         
         self.max_loop = max_loop
+        self.view_alignment = np.load('data/view/front-view-lmks.npy')
     
 
-    def generate_face_mesh(self, image, point_cloud = False, depth_scale = False, aligment = False):
+    def generate_face_mesh(self, image, point_cloud = False, depth_scale = False, smoothing = False, frontview = False):
         try:
             points = []
             triangles = []
@@ -54,11 +55,11 @@ class FaceMeshGenerator:
                     landmarks_list = [(int(landmark.x * iw), int(landmark.y * ih)) for landmark in landmarks.landmark]
                     depth_list = [landmark.z  for landmark in landmarks.landmark]
 
-                    if aligment:
-                        face_pose = get_face_pose(landmarks)
-                        point_cloud_data = get_3D_point_cloud(landmarks_list, depth_list)
-                        landmarks_list = get_fontal_landmarks(point_cloud_data, face_pose)[:,:2]
-                        landmarks_list = list(landmarks_list)
+                    # if get frontal view face:
+                    if frontview:
+                        current_view = get_3D_point_cloud(landmarks_list, depth_list)
+                        front_view = frontalize(current_view, self.view_alignment)
+                        landmarks_list = list(front_view[:, :2])
 
                     # Perform Delaunay triangulation
                     points = np.array(landmarks_list)
@@ -77,6 +78,13 @@ class FaceMeshGenerator:
                         points = np.array(landmarks_list)
                         triangles = Delaunay(points)
 
+                    if smoothing:
+                        point_cloud_data = get_3D_point_cloud(landmarks_list, depth_list)
+                        smoothed = smoothing_point_cloud(point_cloud_data)
+
+                        landmarks_list = smoothed[:, :2]
+                        depth_list = smoothed[:, 2]
+                    
                     # Perform Delaunay triangulation
                     points = np.array(landmarks_list)
                     triangles = Delaunay(points)
