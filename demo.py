@@ -18,7 +18,7 @@ def main():
 
     args = parser.parse_args()
 
-    files = os.listdir(args.folder) 
+    files = os.listdir(args.folder)
 
     for _, file in enumerate(files):
         if file.split('.')[-1] not in ['jpg', 'png']:
@@ -31,19 +31,19 @@ def main():
         detector = FaceMeshGenerator(max_loop = args.max_loop)
         input_image = image.copy()
         output_image, face_detected, points, depth_list, triangles = detector.generate_face_mesh(input_image, args.point_cloud, args.depth_scale)
-        
+
         if face_detected:
             list_view = []
             list_view.append(image)
             list_view.append(output_image)
-            
+
             depth_map = get_depth_map(input_image, points, triangles.simplices, depth_list)
             list_view.append(depth_map)
 
             point_cloud_data = get_3D_point_cloud(points, depth_list, w)
             mesh_image = render_mesh(image, point_cloud_data)
             list_view.append(mesh_image)
-       
+
             view_face = render_rotate_mesh(image, point_cloud_data)
             list_view.extend(view_face)
 

@@ -26,7 +26,7 @@ def main():
 
     args = parser.parse_args()
 
-    files = os.listdir(args.folder) 
+    files = os.listdir(args.folder)
 
     for _, file in enumerate(files):
         if file.split('.')[-1] not in ['jpg', 'png']:
@@ -39,7 +39,7 @@ def main():
         detector = FaceMeshGenerator(max_loop = args.max_loop)
         input_image = image.copy()
         output_image, face_detected, points, depth_list, triangles = detector.generate_face_mesh(input_image, args.point_cloud, args.depth_scale)
-        
+
         if not face_detected:
             print(f'No face detected in is image')
 
@@ -53,18 +53,18 @@ def main():
         if args.save_mesh:
             points_3d = get_3D_point_cloud(points, depth_list)
             save_ply_mesh(points_3d,  triangles.simplices, f'{args.folder}/{file}_face_dense.ply')
-        
+
         if args.render_mesh:
             point_cloud_data = get_3D_point_cloud(points, depth_list, w)
             mesh_image = render_mesh(image, point_cloud_data)
             cv2.imwrite(f'{args.folder}/{file}_face_mesh.jpg', mesh_image)
-        
+
 
         if args.mesh_view:
             point_cloud_data = get_3D_point_cloud(points, depth_list, w)
             list_view = render_rotate_mesh(image, point_cloud_data)
             save_images_as_gif(list_view, f'{args.folder}/{file}_face_mesh_view.gif')
- 
+
 
 
 if __name__ == '__main__':

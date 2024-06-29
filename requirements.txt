@@ -3,5 +3,5 @@ numpy
 opencv-python
 scipy
 plyfile
-open3d 
+open3d
 pyntcloud

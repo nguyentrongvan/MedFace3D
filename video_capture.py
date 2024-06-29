@@ -8,7 +8,7 @@ import traceback
 from medface3D.face_mesh_reconstruction import FaceMeshGenerator
 from medface3D.face_pose_estimation import FacePoseEstimator
 
-from utils.render_mesh import render_mesh, render_frontal_face_mesh
+from utils.render_mesh import render_mesh
 from utils.transform import get_3D_point_cloud
 
 
@@ -47,10 +47,10 @@ def main():
             if not ret:
                 print("Error: Could not read frame.")
                 break
-            
+
             input_image = frame
             output_image, face_detected, points, depth_list, _ = detector.generate_face_mesh(input_image, True, False)
-            
+
             if face_detected:
                 point_cloud_data = get_3D_point_cloud(points, depth_list)
 
