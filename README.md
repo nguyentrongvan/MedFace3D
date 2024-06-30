@@ -5,7 +5,7 @@
     <img src="https://mohamedalirashad.github.io/FreeFaceMoCap/assets/img/mediapipe.png" alt="MediaPipe" width="30%">
 </div>
 <div style="text-align:center;">
-    <img src="medface3D/data/sample/face_001.jpg_face_reconstruction.gif" alt="demo" width="30%">
+    <img src="https://github.com/nguyentrongvan/MedFace3D/blob/main/medface3D/data/sample/face_001.jpg_face_reconstruction.gif?raw=true" alt="demo" width="30%">
 </div>
 
 
@@ -25,20 +25,20 @@ python demo.py
 
 ## 2. Demo result
 ### Face dense generation:
-![Demo face mesh](medface3D/data/demo/dense.png)
+![Demo face mesh](https://github.com/nguyentrongvan/MedFace3D/blob/main/medface3D/data/demo/dense.png?raw=true)
 <div style="text-align:center;">
-    <img src="medface3D/data/demo/famed01.gif" alt="MediaPipe" width="49%">
-    <img src="medface3D/data/demo/famed02.gif" alt="MediaPipe" width="49%">
+    <img src="https://github.com/nguyentrongvan/MedFace3D/blob/main/medface3D/data/demo/famed01.gif?raw=true" alt="MediaPipe" width="49%">
+    <img src="https://github.com/nguyentrongvan/MedFace3D/blob/main/medface3D/data/demo/famed02.gif?raw=true" alt="MediaPipe" width="49%">
 </div>
 
 
 ### Face depth estimation:
-![Demo face depth](medface3D/data/demo/depth.png)
+![Demo face depth](https://github.com/nguyentrongvan/MedFace3D/blob/main/medface3D/data/demo/depth.png?raw=true)
 
 
 ### 3D face mesh reconstruction:
 <div style="text-align:center;">
-    <img src="medface3D/data/demo/mesh_famed.gif" alt="MediaPipe" width="100%">
-    <img src="medface3D/data/demo/mesh_local.gif" alt="MediaPipe" width="100%">
+    <img src="https://github.com/nguyentrongvan/MedFace3D/blob/main/medface3D/data/demo/mesh_famed.gif?raw=true" alt="MediaPipe" width="100%">
+    <img src="https://github.com/nguyentrongvan/MedFace3D/blob/main/medface3D/data/demo/mesh_local.gif?raw=true" alt="MediaPipe" width="100%">
 </div>
 

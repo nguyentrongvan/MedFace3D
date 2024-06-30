@@ -17,7 +17,7 @@ class PostInstallCommand(install):
 
 setup(
     name='medface3d',
-    version='0.0.1',
+    version='0.0.2',
     include_package_data=True,
     package_data={
         'medface3D': ['data/demo/*.jpg', 'data/demo/*.png', 'data/demo/*.gif'],  # Include all jpg, png, and gif files,
