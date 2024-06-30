@@ -1,11 +1,11 @@
-# medface3d.worker
+# medface3D.worker
 ### Dense face reconstruction based on 3D facial landmarks
 #### Using medipipe face mesh to detect 468 3D facial landmarks and use it to reconstruct 3D face mesh
 <div style="text-align:center;">
     <img src="https://mohamedalirashad.github.io/FreeFaceMoCap/assets/img/mediapipe.png" alt="MediaPipe" width="30%">
 </div>
 <div style="text-align:center;">
-    <img src="medface3d/data/sample/face_001.jpg_face_reconstruction.gif" alt="demo" width="30%">
+    <img src="medface3D/data/sample/face_001.jpg_face_reconstruction.gif" alt="demo" width="30%">
 </div>
 
 
@@ -25,20 +25,20 @@ python demo.py
 
 ## 2. Demo result
 ### Face dense generation:
-![Demo face mesh](medface3d/data/demo/dense.png)
+![Demo face mesh](medface3D/data/demo/dense.png)
 <div style="text-align:center;">
-    <img src="medface3d/data/demo/famed01.gif" alt="MediaPipe" width="49%">
-    <img src="medface3d/data/demo/famed02.gif" alt="MediaPipe" width="49%">
+    <img src="medface3D/data/demo/famed01.gif" alt="MediaPipe" width="49%">
+    <img src="medface3D/data/demo/famed02.gif" alt="MediaPipe" width="49%">
 </div>
 
 
 ### Face depth estimation:
-![Demo face depth](medface3d/data/demo/depth.png)
+![Demo face depth](medface3D/data/demo/depth.png)
 
 
 ### 3D face mesh reconstruction:
 <div style="text-align:center;">
-    <img src="medface3d/data/demo/mesh_famed.gif" alt="MediaPipe" width="100%">
-    <img src="medface3d/data/demo/mesh_local.gif" alt="MediaPipe" width="100%">
+    <img src="medface3D/data/demo/mesh_famed.gif" alt="MediaPipe" width="100%">
+    <img src="medface3D/data/demo/mesh_local.gif" alt="MediaPipe" width="100%">
 </div>
 

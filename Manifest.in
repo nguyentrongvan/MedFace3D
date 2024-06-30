@@ -1,2 +1,2 @@
 include README.md
-include medface3d/data/demo*
+include medface3D/data/demo*

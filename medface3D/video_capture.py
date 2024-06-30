@@ -5,11 +5,11 @@ import numpy as np
 import traceback
 
 
-from medface3d.worker.face_mesh_reconstruction import FaceMeshGenerator
-from medface3d.worker.face_pose_estimation import FacePoseEstimator
+from medface3D.worker.face_mesh_reconstruction import FaceMeshGenerator
+from medface3D.worker.face_pose_estimation import FacePoseEstimator
 
-from medface3d.utils.render_mesh import render_mesh
-from medface3d.utils.transform import get_3D_point_cloud
+from medface3D.utils.render_mesh import render_mesh
+from medface3D.utils.transform import get_3D_point_cloud
 
 
 def main():

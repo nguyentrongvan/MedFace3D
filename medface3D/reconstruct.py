@@ -3,11 +3,11 @@ import cv2
 import argparse
 import numpy as np
 
-from medface3d.worker.face_mesh_reconstruction import FaceMeshGenerator
-from medface3d.utils.save_mesh import save_ply_mesh
-from medface3d.utils.visualize import get_depth_map, save_images_as_gif
-from medface3d.utils.render_mesh import render_mesh, render_rotate_mesh
-from medface3d.utils.transform import get_3D_point_cloud
+from medface3D.worker.face_mesh_reconstruction import FaceMeshGenerator
+from medface3D.utils.save_mesh import save_ply_mesh
+from medface3D.utils.visualize import get_depth_map, save_images_as_gif
+from medface3D.utils.render_mesh import render_mesh, render_rotate_mesh
+from medface3D.utils.transform import get_3D_point_cloud
 
 def main():
     # Parse command-line arguments

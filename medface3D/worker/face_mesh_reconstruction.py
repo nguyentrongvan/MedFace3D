@@ -3,9 +3,9 @@ import mediapipe as mp
 import numpy as np
 
 from scipy.spatial import Delaunay
-from medface3d.utils.interpolation import bilinear_interpolation, bilinear_interpolation_triangle
-from medface3d.utils.visualize import plot_mesh, plot_point_cloud
-from medface3d.utils.transform import min_max_scale
+from medface3D.utils.interpolation import bilinear_interpolation, bilinear_interpolation_triangle
+from medface3D.utils.visualize import plot_mesh, plot_point_cloud
+from medface3D.utils.transform import min_max_scale
 
 
 class FaceMeshGenerator:
