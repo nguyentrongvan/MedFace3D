@@ -16,7 +16,7 @@ class PostInstallCommand(install):
         subprocess.check_call(['pip', 'install', '-r', os.path.join(current_folder_path, 'requirements.txt')])
 
 setup(
-    name='face3d_med_reconstruction',
+    name='medface3d',
     version='0.0.1',
     include_package_data=True,
     package_data={
