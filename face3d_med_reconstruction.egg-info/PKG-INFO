@@ -1,3 +1,12 @@
+Metadata-Version: 2.1
+Name: face3d_med_reconstruction
+Version: 0.0.1
+Summary: 3D face reconstruction using mediapipe 3D Face mesh
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+
 # medface3d.worker
 ### Dense face reconstruction based on 3D facial landmarks
 #### Using medipipe face mesh to detect 468 3D facial landmarks and use it to reconstruct 3D face mesh

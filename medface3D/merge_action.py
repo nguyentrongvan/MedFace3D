@@ -3,10 +3,10 @@ import cv2
 import argparse
 import numpy as np
 
-from medface3D.face_mesh_reconstruction import FaceMeshGenerator
-from utils.render_mesh import render_mesh
-from utils.transform import get_3D_point_cloud
-from simualte.simuator import merge_action
+from medface3d.worker.face_mesh_reconstruction import FaceMeshGenerator
+from medface3d.utils.render_mesh import render_mesh
+from medface3d.utils.transform import get_3D_point_cloud
+from medface3d.simualte.simuator import merge_action
 
 
 def main():

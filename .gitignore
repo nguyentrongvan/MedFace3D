@@ -1,6 +1,10 @@
 .vscode
 
 env
+med_face_reconstruction.egg-info
+dist
+build
+
 .idea
 **/__pycache__
 **/logs
